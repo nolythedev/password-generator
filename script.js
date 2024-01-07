@@ -18,46 +18,35 @@ var pwSpecialChar = false;
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+
   // Prompt user to enter number of desired password characters
   var pwLength = prompt("How many characters would you like to include in your Password?");
+
   //Convert prompt string to number
   var pwLengthNum = parseFloat(pwLength);
+
   // Check user's input is between 8 and 128 chars
   if (pwLengthNum >= 8 && pwLengthNum <= 128) {
-
     console.log(`You have chosen ${pwLengthNum} characters`);
-  // Confirm user would like to include lowercase chars
+
+    // Confirm user would like to include lowercase chars
     var checkLowercase = confirm("Would you like to include lowercase characters?");
-  // Set password lowercase to true if user selects true
-    if (checkLowercase === true) {
-      pwLowercase = checkLowercase;
-    } else {
-      console.log("You did not choose any lowercase characters");
-    }
-   // Confirm user would like to include uppercase chars
+
+    // Set password lowercase to true if user selects true
+    checkLowercase ? pwLowercase = checkLowercase : console.log("You did not choose any lower characters");
+
+    // Confirm user would like to include uppercase chars
     var checkUppercase = confirm("Would you like to include uppercase characters?");
+
     // Set password uppercase to true if user selects true
-    if (checkUppercase === true) {
-      pwUppercase = checkUppercase;
-    } else {
-      console.log("You did not choose any uppercase characters");
-    }
-   // Confirm user would like to include numeric chars
+    checkUppercase ? pwUppercase = checkUppercase : console.log("You did not choose any uppercase characters");
+
     var checkNumeric = confirm("Would you like to include numeric characters?");
-    // Set password numeric to true if user selects true
-    if (checkNumeric === true) {
-      pwNumeric = checkNumeric;
-    } else {
-      console.log("You did not choose any numeric characters");
-    }
-   // Confirm user would like to include special chars
+    checkNumeric ? pwNumeric = checkNumeric : console.log("You did not choose any numeric characters");
+
     var checkSpecialChar = confirm("Would you like to include special characters?");
-    // Set password special chars to true if user selects true
-    if (checkSpecialChar === true) {
-      checkSpecialChar = pwSpecialChar;
-    } else {
-      console.log("You did not choose any numeric characters");
-    }
+    checkSpecialChar ? pwSpecialChar = checkSpecialChar : console.log("You did not choose any special characters");
+
   } else {
     console.log("Your password should be between 8 - 128 characters long to continue");
   }
@@ -68,7 +57,19 @@ getPasswordOptions();
 // Function for getting a random element from an array
 function getRandom(arr) {
 
+  // Get random index value
+  var randomIndex = Math.floor(Math.random() * arr.length);
+
+  // Get random character 
+  var randomChar = arr[randomIndex];
+  
+  return randomChar;
 }
+
+console.log(getRandom(specialCharacters));
+console.log(getRandom(numericCharacters));
+console.log(getRandom(lowerCasedCharacters));
+console.log(getRandom(upperCasedCharacters));
 
 // Function to generate password with user input
 function generatePassword() {
