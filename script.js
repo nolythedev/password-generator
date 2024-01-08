@@ -24,33 +24,33 @@ var pwSpecialChar = false;
 
  pwLength = pwLengthNum;
 
+ alert(`You have chosen ${pwLength} characters`);
+
 // Function to prompt user for password options
 function getPasswordOptions() {
 
-  // Check user's input is between 8 and 128 chars
-  if (pwLengthNum >= 8 && pwLengthNum <= 128) {
-    console.log(`You have chosen ${pwLengthNum} characters`);
+  // Confirm user would like to include lowercase chars
+  var checkLowercase = confirm("Would you like to include lowercase characters?");
+  pwLowercase = checkLowercase;
 
-    // Confirm user would like to include lowercase chars
-    var checkLowercase = confirm("Would you like to include lowercase characters?");
-    pwLowercase = checkLowercase;
+  // Confirm user would like to include uppercase chars
+  var checkUppercase = confirm("Would you like to include uppercase characters?");
+  pwUppercase = checkUppercase;
 
-    // Confirm user would like to include uppercase chars
-    var checkUppercase = confirm("Would you like to include uppercase characters?");
-    pwUppercase = checkUppercase;
+  var checkNumeric = confirm("Would you like to include numeric characters?");
+  pwNumeric = checkNumeric;
 
-    var checkNumeric = confirm("Would you like to include numeric characters?");
-    pwNumeric = checkNumeric;
+  var checkSpecialChar = confirm("Would you like to include special characters?");
+  pwSpecialChar = checkSpecialChar;
 
-    var checkSpecialChar = confirm("Would you like to include special characters?");
-   pwSpecialChar = checkSpecialChar;
-
-  } else {
-    console.log("Your password should be between 8 - 128 characters long to continue");
-  }
 }
 
-getPasswordOptions();
+// Check user's input is between 8 and 128 chars
+if (pwLengthNum >= 8 && pwLengthNum <= 128) {
+  getPasswordOptions();
+} else {
+  alert("Your password should be between 8 - 128 characters long to continue"); 
+}
 
 // Function for getting a random element from an array
 function getRandom(arr) {
@@ -87,16 +87,23 @@ function generatePassword() {
   return userPassword;
 }
 
-generatePassword(userPassword);
-
 // Get references to the #generate element
 var generateBtn = document.querySelector('#generate');
+var copyBtn = document.querySelector('#copy');
+
+if ( pwLowercase === true || pwUppercase === true || pwNumeric === true || pwSpecialChar === true ) {
+  generatePassword(userPassword);
+  generateBtn.disabled = false;
+  copyBtn.disabled = false;
+} else {
+  alert("You must select at least one character type for your password to continue");
+}
 
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector('#password');
-
+  
   passwordText.value = password;
 }
 
